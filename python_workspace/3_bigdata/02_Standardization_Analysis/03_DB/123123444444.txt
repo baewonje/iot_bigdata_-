@@ -1,0 +1,76 @@
+1db
+# Query the sales table
+# select [필드명] from [테이블명]
+# select * <= 행의 모든 값을 가져오는 결과
+# cursor = con.execute("SELECT customer FROM sales")
+cursor = con.execute("SELECT customer FROM sales")
+rows = cursor.fetchall()
+
+
+
+# Query the sales table
+# :memory: 는 휘발성(volatile)이기 때문에 프로그램이 종료가 된 후에는
+# 그 이전에 작업한 모든 내역은 사라진다.
+# 따라서 아래 select문은 정상 수행되지 않는다.
+ cursor = ~~~
+ 
+ 
+ 2DB 
+ # 목적
+ # 1. 비휘발성 데이터 베이스 생성하기
+ # 2. 외부 데이터로부터 초기 DBtable값 생성
+ 
+ 
+ 25~
+ print("CSV 원본 데이터 분석")
+ for row in file.reader:
+    data = []
+    for column_index in range(len(header)):
+        data.append(row[column_index])
+    print(data)
+    c.execute("Insert into suppliers values(?, ?, ?, ?);", data)
+ con.commit()
+ 
+ 
+ 2db_non 
+ # 목적
+ # 비휘발성인 db에 접속하면 언제나 이전 값을 조회할 수 있다.
+ 
+ 
+ 3db 
+ 38 ~ 
+ # update [테이블명] SET [필드명]= 변경값....  where [필드명]=[필터링조건값];
+ # update는 반드시 where조건이 동반되어야 한다.
+ 
+ 
+ 4db
+ 4~
+ # delete from [테이블명] where [필드명]=[필터링조건값]
+ # 특정 record(행)을 삭제하는 SQL 명령어
+ 
+ * 중복 레코드를 제거하는 distinct
+ex) select distinct class from student
+* where 이후에
+ =, >, <, <=, >=
+ 여러 조건을 지정할 경우: and, or
+ ex) where gpa>=3.0 and class ='3';
+  where home = '부산' or home = '서울'
+* 부정연산자 <>
+ ex) where gpa>=3.5 and class <>'3';
+* 범위연산자 between
+ ex) where gpa between 2.9 and 3.3
+* 검색 조건 리스트 IN, NOT IN
+where home IN('부산','광주');
+=> where home='부산' or home='광주'
+where home NOT IN('부산','광주');
+=> where home <> '부산' and home <> '광주'
+* 패턴매치
+ where home like '부*'
+* 테이블 값 정렬
+ select * from Suppliers order by desc cost
+* 함수 사용
+MAX, MIN, AVG
+select MAX(cost) from suplier
+* 전체 레코드 계산
+selct count(*) from suplier
+ 	

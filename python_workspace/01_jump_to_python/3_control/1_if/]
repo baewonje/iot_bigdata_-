@@ -1,0 +1,11 @@
+#coding=cp949
+
+#payment_type = ""
+#payment_type = "현금"
+payment_type = "카드"
+
+if payment_type:
+    print("{0} 확인 되었습니다.".format(payment_type))
+    print("택시를 타고 가세요")
+else:
+    print("걸어 가세요")

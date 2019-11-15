@@ -1,0 +1,13 @@
+ID_Number,widget,Supplier,Cost,Date,extension
+1234.0,Supplier A,suppliers.xlsx
+2345.0,Supplier A,suppliers.xlsx
+4567.0,Supplier B,suppliers.xlsx
+6789.0,Supplier C,suppliers.xlsx
+7890.0,Supplier C,suppliers.xlsx
+1234,Supplier A,MySQL
+2345,Supplier A,MySQL
+4567,Supplier B,MySQL
+6789,Supplier C,MySQL
+7890,Supplier C,suppliers_2012.csv
+3456,Supplier B,MySQL
+5678,Supplier B,MySQL

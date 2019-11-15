@@ -1,0 +1,10 @@
+f = open("abc.txt",'r')
+list = f.readlines()
+f.close()
+
+list.reverse()
+f= open("abc.txt",'w')
+list = "".join(list)
+print(list)
+f.write(list)
+f.close()
