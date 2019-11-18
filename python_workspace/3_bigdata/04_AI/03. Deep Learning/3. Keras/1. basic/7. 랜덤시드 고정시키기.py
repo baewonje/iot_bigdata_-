@@ -13,7 +13,7 @@ dataset = np.loadtxt("pima-indians-diabetes.data", delimiter=",")
 x_train = dataset[:700,0:8]
 y_train = dataset[:700,8]
 x_test = dataset[700:,0:8]
-y_test = dataset[700:8]
+y_test = dataset[700:,8]
 
 # 3. 모델 구성하기
 model = Sequential()
@@ -32,3 +32,4 @@ scores = model.evaluate(x_test, y_test)
 print("%s: %.2f%%" %(model.metrics_names[1], scores[1]*100))
 
 # 7. 결과
+# accuracy: 80.88%

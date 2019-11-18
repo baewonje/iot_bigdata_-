@@ -33,8 +33,16 @@ optimizer_list.append(['SGD',optimizers.SGD()])
 optimizer_list.append(['Momentum',optimizers.SGD(momentum=0.9)])
 # NAG
 optimizer_list.append((['NAG',optimizers.SGD(momentum=0.9, nesterov=True)]))
-# 기타 최적화
-optimizer_list.append(['기타 최적화', optimizers.SGD(lr=0.01, momentum=0.9, nesterov=True)])
+# Adagrad
+optimizer_list.append(['Adagrad', optimizers.adagrad()])
+# RMSProp
+optimizer_list.append(['RMSProp', optimizers.rmsprop()])
+# AdaDelta
+optimizer_list.append(['AdaDelta', optimizers.adadelta()])
+# Adam
+optimizer_list.append(['Adam', optimizers.adam()])
+# Nadam
+optimizer_list.append(['Nadam',optimizers.nadam()])
 
 score_list = []
 opt_name_list=[]
@@ -66,6 +74,6 @@ plt.xticks(optimizer_index, opt_name_list, color='red', fontsize='large')
 
 plt.xlabel('Optimizer Name')
 plt.ylabel('Accuracy')
-plt.title('SGD ~ NAG 까지 기본 성능 비교 ')
+plt.title('SGD ~ Nadam 까지 기본 성능 비교 ')
 plt.savefig('SGD_to_NAG.png', dpi=400)
 plt.show()
