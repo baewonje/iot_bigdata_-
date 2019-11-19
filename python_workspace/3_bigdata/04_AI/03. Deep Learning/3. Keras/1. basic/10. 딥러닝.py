@@ -89,7 +89,7 @@ while cnt < (plt_row * plt_col):
     if np.argmax(y_test[i]) == np.argmax(yhat_test[i]):
         i += 1
         continue
-    sub_plt = axarr[(cnt / plt_row), cnt % plt_col]
+    sub_plt = axarr[int(cnt / plt_row), cnt % plt_col]
     sub_plt.axis('off')
     sub_plt.imshow(x_test[i].reshape(width, height))
     sub_plt_title = 'R: '+ str(np.argmax(y_test[i])) + ' P: ' + str(np.argmax(yhat_test[i]))

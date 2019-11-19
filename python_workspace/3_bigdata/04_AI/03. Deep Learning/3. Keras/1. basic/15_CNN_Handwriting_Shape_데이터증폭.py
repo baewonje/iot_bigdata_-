@@ -11,6 +11,7 @@ from keras.models import Sequential
 from keras.layers import Dense, Activation,Flatten
 from keras.layers.convolutional import Conv2D, MaxPooling2D
 import matplotlib.pyplot as plt
+from keras.layers import Dropout
 
 # 1. 데이터 셋 불러오기
 # ImageDataGenerator: 케라스에서 이미지 전처리를 용이하게 해주는 클래스
@@ -65,4 +66,4 @@ print(test_generator.class_indices)
 print(output)
 
 # 결과
-# Accuracy : 40.00%
+# Accuracy : 80.00%

@@ -15,8 +15,8 @@ height = 28
 
 # 훈련셋과 시험셋 불러오기
 (x_train, y_train), (x_test, y_test) = mnist.load_data()
-x_train = x_train.reshape(60000, width * height).astype('float32') / 255.0
-x_test = x_test.reshape(10000, width * height).astype('float32') / 255.0
+x_train = x_train.reshape(60000, width , height,1).astype('float32') / 255.0
+x_test = x_test.reshape(10000, width , height,1).astype('float32') / 255.0
 
 # 훈련셋과 검증셋 분리
 x_val = x_train[50000:]
