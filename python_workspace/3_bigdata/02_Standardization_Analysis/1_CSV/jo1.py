@@ -3,22 +3,27 @@ import sys
 import os
 import csv
 
+repository_name = 'clothes_repository'
 file_name = 'clothes_save_list'
 file_format = 'csv'
-file_size_limit = 10000
+file_size_limit = 700
+dir_delimeter = '/'
 is_header = False
 is_first = False
+initial_file_name = f'{repository_name}{dir_delimeter}{file_name}1.{file_format}'
 
 
 def get_dest_file_name(file_index):
     global is_header
     header = ['sort1', 'sort2', 'sort3', 'color', 'option']
-    dest_file_name = f'{file_name}{str(file_index)}.{file_format}'
+    dest_file_name = f'{repository_name}{dir_delimeter}{file_name}{str(file_index)}.{file_format}'
     try:
         file_size = os.path.getsize(dest_file_name)
+        print(f"' {dest_file_name}' file size : {file_size}")
+        print(f"파일당 size 제한: {file_size_limit}")
 
         if file_size > file_size_limit:
-            dest_file_name = f'{file_name}{str(file_index+1)}.{file_format}'
+            dest_file_name = f'{repository_name}{dir_delimeter}{file_name}{str(file_index+1)}.{file_format}'
             is_header = True
         else:
             is_header = False
@@ -27,7 +32,9 @@ def get_dest_file_name(file_index):
 
     return dest_file_name
 
-def short_t_shirt(index,choice_color):
+def short_t_shirt(index):
+    global is_first, is_header
+
     dest_file_name = get_dest_file_name(index)
 
     csv_out_file = open(dest_file_name,'a',newline='')
@@ -37,95 +44,43 @@ def short_t_shirt(index,choice_color):
         header_list = ['sort1','sort2','sort3','color','memo']
         filewriter.writerow(header_list)
 
+    filewriter.writerow(sort1)
+    filewriter.writerow(sort2)
+    filewriter.writerow(sort3)
+    filewriter.writerow(sort_color)
 
+    csv_out_file.close()
 
 def file_count():
-    index = len(os.listdir(f'{file_name}'))
+    index = len(os.listdir(f'{repository_name}{dir_delimeter}'))
     return index
 
 while True:
     sort1 = int(input(" 1. 상의\n 2. 하의\n 3. 아우터\n 입력하세요: "))
-    sort2 = int(input(" 1. 티셔츠\n 2. 셔츠\n 3. 맨투맨 \n 4. 후드티 \n"
-                      " 5. 블라우스\n 6. 니트\n 7. 폴라티\n 입력하세요: "))
-    sort3 = int(input(" 1. 반팔\n 2. 긴팔 \n 3. 추가옵션\n 입력하세요: "))
-    sort2_1 = int(input(" 1. 면바지 \n 2. 청바지 \n3. 슬랙스 \n 4. 반바지 "
-                        "\n5. 치마\n 6. 원피스\n 입력하세요: "))
-    sort_color = int(input(" 1. 빨강\n 2. 주황\n 3. 노랑\n 4. 초록 \n"
-                           " 5. 파랑 \n 6. 남색\n 7. 보라\n 8. 블랙\n 9. 흰색\n 입력하세요: "))
-    if choice_1 == 1:
-       choice_top = int(input(category_top))
-       if choice_top == 1:
-           choice_sleeve = int(input(category_sleeve))
-           choice_color = int(input(category_color))
-           if choice_sleeve == 1:
-               file_count()
-               short_t_shirt(file_count(),int(choice_color))
-               top_save(t_shirt_list)
-           elif choice_sleeve == 2:
-               pass
-           elif choice_sleeve == 3:
-               pass
-           else:
-               continue
-       elif choice_top == 2:
-           if choice_sleeve == 1:
-               pass
-           elif choice_sleeve == 2:
-               pass
-           elif choice_sleeve == 3:
-               pass
-           else:
-               continue
-       elif choice_top == 3:
-           if choice_sleeve == 1:
-               pass
-           elif choice_sleeve == 2:
-               pass
-           elif choice_sleeve == 3:
-               pass
-           else:
-               continue
-       elif choice_top == 4:
-           if choice_sleeve == 1:
-               pass
-           elif choice_sleeve == 2:
-               pass
-           elif choice_sleeve == 3:
-               pass
-           else:
-               continue
-       elif choice_top == 5:
-           if choice_sleeve == 1:
-               pass
-           elif choice_sleeve == 2:
-               pass
-           elif choice_sleeve == 3:
-               pass
-           else:
-               continue
-       elif choice_top == 6:
-           if choice_sleeve == 1:
-               pass
-           elif choice_sleeve == 2:
-               pass
-           elif choice_sleeve == 3:
-               pass
-           else:
-               continue
-       elif choice_top == 7:
-           if choice_sleeve == 1:
-               pass
-           elif choice_sleeve == 2:
-               pass
-           elif choice_sleeve == 3:
-               pass
-           else:
-               continue
-       else:
-           continue
-    elif choice_1 == 2:
-      pass
-    elif choice_1 == 3:
-       pass
+    if sort1 == 1:
+        sort2 = int(input(" 1. 티셔츠\n 2. 셔츠\n 3. 맨투맨 \n 4. 후드티 \n"
+                          " 5. 블라우스\n 6. 니트\n 7. 폴라티\n 입력하세요: "))
+        if sort2 == 1:
+            sort3 = int(input(" 1. 반팔\n 2. 긴팔 \n 3. 추가옵션\n 입력하세요: "))
+            sort_color = int(input(" 1. 빨강\n 2. 주황\n 3. 노랑\n 4. 초록 \n"
+                                   " 5. 파랑 \n 6. 남색\n 7. 보라\n 8. 블랙\n 9. 흰색\n 입력하세요: "))
+            print(sort1,sort2,sort3,sort_color)
+            sort1 = "상의"
+            sort2 = "티셔츠"
+            sort3 = "반팔"
+            sort_color = "빨강"
+            if not os.path.exists(repository_name):
+                os.mkdir(repository_name)
+            if not os.path.exists(initial_file_name):
+                is_first = True
+                short_t_shirt(1)
+            else:
+                short_t_shirt(file_count())
+    elif sort1 == 2:
+        sort2_1 = int(input(" 1. 면바지 \n 2. 청바지 \n3. 슬랙스 \n 4. 반바지 "
+                            "\n5. 치마\n 6. 원피스\n 입력하세요: "))
+
+    elif sort1 == 3:
+        pass
     else:
         continue
