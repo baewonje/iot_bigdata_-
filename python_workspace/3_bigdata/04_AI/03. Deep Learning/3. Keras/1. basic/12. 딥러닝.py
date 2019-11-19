@@ -1,10 +1,12 @@
-# 0. 사용할 패키지 불러오기
-import numpy as np
 
+import numpy as np
 from keras.utils import np_utils
+from keras.datasets import fashion_mnist
 from keras.datasets import mnist
 from keras.models import Sequential
 from keras.layers import Dense, Activation
+from keras.layers import Conv2D, MaxPooling2D, Flatten
+import matplotlib.pyplot as plt
 
 width = 28
 height = 28
@@ -29,8 +31,12 @@ y_test = np_utils.to_categorical(y_test)
 
 # 2. 모델 구성하기
 model = Sequential()
-model.add(Dense(256, input_dim=width * height, activation='relu'))
-model.add(Dense(256, activation='relu'))
+model.add(Conv2D(64, (3, 3), activation='relu', input_shape=(width, height, 1)))
+model.add(MaxPooling2D(pool_size=(2, 2)))
+model.add(Conv2D(32, (3, 3), activation='relu'))
+model.add(MaxPooling2D(pool_size=(2, 2)))
+#  이미지를 일차원으로 바꿔주는 Flatten 레이어
+model.add(Flatten())
 model.add(Dense(256, activation='relu'))
 model.add(Dense(10, activation='softmax'))
 
@@ -38,7 +44,7 @@ model.add(Dense(10, activation='softmax'))
 model.compile(loss='categorical_crossentropy', optimizer='sgd', metrics=['accuracy'])
 
 # 4. 모델 학습시키기
-hist = model.fit(x_train, y_train, epochs=30, batch_size=32, validation_data=(x_val, y_val))
+hist = model.fit(x_train, y_train, epochs=10, batch_size=32, validation_data=(x_val, y_val))
 
 # 5. 학습과정 살펴보기
 import matplotlib.pyplot as plt
@@ -49,11 +55,11 @@ acc_ax = loss_ax.twinx()
 
 loss_ax.plot(hist.history['loss'], 'y', label='train loss')
 loss_ax.plot(hist.history['val_loss'], 'r', label='val loss')
-loss_ax.set_ylim([0.0, 0.5])
+loss_ax.set_ylim([0.0, 3.0])
 
 acc_ax.plot(hist.history['accuracy'], 'b', label='train acc')
 acc_ax.plot(hist.history['val_accuracy'], 'g', label='val acc')
-acc_ax.set_ylim([0.8, 1.0])
+acc_ax.set_ylim([0.5, 0.9])
 
 loss_ax.set_xlabel('epoch')
 loss_ax.set_ylabel('loss')
@@ -89,7 +95,7 @@ while cnt < (plt_row * plt_col):
     if np.argmax(y_test[i]) == np.argmax(yhat_test[i]):
         i += 1
         continue
-    sub_plt = axarr[(cnt / plt_row), cnt % plt_col]
+    sub_plt = axarr[int(cnt / plt_row), cnt % plt_col]
     sub_plt.axis('off')
     sub_plt.imshow(x_test[i].reshape(width, height))
     sub_plt_title = 'R: '+ str(np.argmax(y_test[i])) + ' P: ' + str(np.argmax(yhat_test[i]))

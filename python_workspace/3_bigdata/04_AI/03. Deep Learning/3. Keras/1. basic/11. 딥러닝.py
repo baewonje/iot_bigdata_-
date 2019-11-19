@@ -1,10 +1,12 @@
+# 컨볼루션 신경망: 전통적인 퍼셉트론 다층 신경망에서 이미지가 가지고 있는 특성을 고려하여 설계된 신경망
+# @ 주요 레이어: 컨볼루션, 맥스플링, 플래튼 레이어
 # 0. 사용할 패키지 불러오기
 import numpy as np
-
 from keras.utils import np_utils
 from keras.datasets import mnist
 from keras.models import Sequential
 from keras.layers import Dense, Activation
+from keras.layers import Conv2D, MaxPooling2D, Flatten
 
 width = 28
 height = 28
@@ -29,8 +31,21 @@ y_test = np_utils.to_categorical(y_test)
 
 # 2. 모델 구성하기
 model = Sequential()
-model.add(Dense(256, input_dim=width * height, activation='relu'))
-model.add(Dense(256, activation='relu'))
+# Conv2D 레이어: 이미지 처리에 주로 사용하는 레이어, 이미지의 특징을 추출한다.
+# 첫번째 인자: 컴볼루션 필터 수
+#  두번째 인자ㅣ: 컨볼루션 커널의 (행, 열)
+#  input_shape: 입력 형태 정의 (행, 열, 채널수),
+#                 일반적으로 흑백 이미지는 1, 컬러(RGB)인 경우는 3으로 셋팅한다.
+#  필터는 일반적으로 (4,4) 또는 (3,3)과 같은 정사각 행렬로 정의된다.
+model.add(Conv2D(32, (3, 3), activation='relu', input_shape=(width, height, 1)))
+
+# MaxPooling2D: 이미지의 특징을 단수화 시킨다. => 사소한 변화에도 일정한 예측을 하기 위하여
+#  pool_size: 수직, 수평 축소 비율을 지정한다. ex) (2,2) 인 경우 이미지의 크기를 반으로 줄어든다.
+model.add(MaxPooling2D(pool_size=(2, 2)))
+model.add(Conv2D(32, (3, 3), activation='relu'))
+model.add(MaxPooling2D(pool_size=(2, 2)))
+#  이미지를 일차원으로 바꿔주는 Flatten 레이어
+model.add(Flatten())
 model.add(Dense(256, activation='relu'))
 model.add(Dense(10, activation='softmax'))
 
