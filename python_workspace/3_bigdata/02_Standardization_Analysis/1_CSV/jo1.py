@@ -3,6 +3,7 @@ import sys
 import os
 import csv
 
+id = "ID"
 repository_name = 'clothes_repository'
 file_name = 'clothes_save_list'
 file_format = 'csv'
@@ -41,7 +42,7 @@ def short_t_shirt(index,sort_list):
     filewriter = csv.writer(csv_out_file)
 
     if is_header == True or is_first == True:
-        header_list = ['sort1','sort2','sort3','color','memo']
+        header_list = ['Number','ID','Sort1','Sort2','Sort3','Color','theme','Memo']
         filewriter.writerow(header_list)
         is_header = False
         is_first = False
@@ -90,7 +91,7 @@ while True:
                 os.mkdir(repository_name)
             if not os.path.exists(initial_file_name):
                 is_first = True
-                short_t_shirt(1)
+                short_t_shirt(1,sort_list)
             else:
                 short_t_shirt(file_count(),sort_list)
     elif sort1 == 2:
